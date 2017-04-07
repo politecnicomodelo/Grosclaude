@@ -1,7 +1,7 @@
 
 class Equipo(object):
     nombre=""
-    capitan=""
+    capitan=None
     listaJugadores=[]
     barrio=""
 
@@ -13,7 +13,8 @@ class Equipo(object):
         self.nombre=n
 
     def setCapitan(self,cap):
-        self.capitan=cap
+        if cap in self.listaJugadores:
+            self.capitan=cap
 
     def setBarrio(self,n):
         self.barrio=n
@@ -23,6 +24,7 @@ class Equipo(object):
             if item.nroCamiseta == j.nroCamiseta:
                 return False
         self.listaJugadores.append(j)
+        return True
 
     def modifDisponibilidad(self,dia,turno,activo):
         self.disponibilidad[dia][turno]=activo

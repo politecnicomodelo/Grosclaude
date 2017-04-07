@@ -38,7 +38,6 @@ class Torneo(object):
                     if item.disponibilidad[item2][item3] == True:
                         if self.Disponible(item,item2,item3)==True:
                             equipo, coincide=self.encontrarCoincidencia(item,item2,item3)
-
                             if coincide == True:
                                 self.crearPartido(item,equipo,item2,item3)
 
@@ -57,10 +56,3 @@ class Torneo(object):
             else:
                 return False
         return False
-
-
-
-
-
-
-
