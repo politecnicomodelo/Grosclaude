@@ -16,7 +16,7 @@ class Torneo(object):
 
     def Disponible(self, equipo, dia, turno):
         for item in self.listaPartidos:
-            if equipo == item.Equipo1.nombre or equipo == item.Equipo2.nombre:
+            if equipo.nombre == item.Equipo1.nombre or equipo.nombre == item.Equipo2.nombre:
                 if item.Dia == dia and item.Turno == turno:
                     return False
                 else:
@@ -25,7 +25,7 @@ class Torneo(object):
 
     def encontrarCoincidencia(self, item1,dia, turno):
         for item in self.listaEquipos:
-            if item.disponibilidad[dia][turno] == True and not item.nombre == item1:
+            if (item.disponibilidad[dia][turno] == True) and (not item.nombre == item1.nombre):
                 if self.Disponible(item,dia,turno)==True and self.yajugaron(item1.nombre,item.nombre) == False:
                     return item, True
                 else:
@@ -38,6 +38,7 @@ class Torneo(object):
                     if item.disponibilidad[item2][item3] == True:
                         if self.Disponible(item,item2,item3)==True:
                             equipo, coincide=self.encontrarCoincidencia(item,item2,item3)
+
                             if coincide == True:
                                 self.crearPartido(item,equipo,item2,item3)
 
@@ -55,6 +56,7 @@ class Torneo(object):
                 return True
             else:
                 return False
+        return False
 
 
 
