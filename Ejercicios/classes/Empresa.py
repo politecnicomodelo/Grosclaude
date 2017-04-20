@@ -1,7 +1,7 @@
 class Empresa(object):
 
     def __init__(self):
-        ListaEmpleados = []
+        self.ListaEmpleados = []
 
     def AgregarEmpleado(self,em):
         self.ListaEmpleado.append(em)

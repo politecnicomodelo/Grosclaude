@@ -1,3 +1,4 @@
+from datetime import date
 class Empleado(object):
     Nombre = ""
     Apellido = ""
@@ -5,8 +6,8 @@ class Empleado(object):
     FechaNac = None
 
     def __init__(self):
-        DiasDisp = []
-        Asistencia = []
+        self.DiasDisp = []
+        self.Asistencia = []
 
     def SetEmpleado(self,nom,apel,tel,nac):
         self.Nombre = nom
