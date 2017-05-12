@@ -3,6 +3,7 @@ from Ejercicio7classes.Alumno import Alumno
 from Ejercicio7classes.Plato import Plato
 from Ejercicio7classes.Pedido import Pedido
 from datetime import datetime
+from datetime import date
 
 Alumnos = []
 Profesores = []
@@ -54,7 +55,7 @@ def CargarPlatos():
             else:
                 l = item.split("|")
             a.Nombre = l[0]
-            a.Precio = l[1]
+            a.Precio = int(l[1])
             Platos.append(a)
 
 def CargarPedidos():
@@ -65,12 +66,13 @@ def CargarPedidos():
                 continue
             else:
                 l = item.split("|")
-            a.FechaCreacion = l[0]
+            a.FechaCreacion = date(l[0])
             if EncontrarAlumno():
                 if EncontrarProfesor() != None:
                     a.Persona = Profesores[EncontrarProfesor(l[1])]
             a.Persona = Alumnos[EncontrarAlumno(l[1])]
-            a.FechaEntrega = l[2]
+
+            a.FechaEntrega = date(l[2])
             a.Plato = l[3]
             a.Entregado = l[4]
             Pedidos.append(a)
