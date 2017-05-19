@@ -38,16 +38,16 @@ def Cargar():
     with open("vuelos.dat","r") as file:
         for item in file:
             a = item.split("|")
-            b = a[6].split(",")
-            for item in b:
-                trip.append(EncontrarTripulacion(item))
             b = a[5].split(",")
             for item in b:
+                trip.append(EncontrarTripulacion(item))
+            b = a[6].split(",")
+            for item in b:
                 pas.append(EncontrarPasajeros(item))
+            print(pas[0].Nombre)
             v = Vuelo(EncontrarAvion(a[0]),TransformarFecha(a[1]),a[2],a[3],a[4],trip,pas)
+            print(v.Pasajeros[0].Nombre)
             Vuelos.append(v)
-            trip = []
-            pas = []
 
 def TransformarFecha(f):
     a = f.split("-")
@@ -82,6 +82,7 @@ def EncontrarPasajeros(dni):
     for item in Pilotos:
         if item.Dni == dni:
             return item
+
 Cargar()
 print(Vuelos[0].CantPersonas())
 print(Vuelos[0].PasajeroJoven().Nombre)
@@ -90,3 +91,5 @@ for item in Vuelos:
     if Vuelos[0].TripulacionMin():
         a += 1
 print("Hay " + str(a) + " vuelos que cumplen con la tripulacion minima")
+for item in Vuelos:
+    print("Los Colados son: " + item.Colados())

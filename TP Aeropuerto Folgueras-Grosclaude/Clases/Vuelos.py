@@ -28,5 +28,12 @@ class Vuelo(object):
         return a
 
     def TripulacionMin(self):
-        if len(self.Tripulantes) >=self.Avion.CantTrip:
+        if len(self.Tripulantes) >= self.Avion.CantTrip:
             return True
+
+    def Colados(self):
+        Lis = []
+        for item in self.Tripulantes:
+            if item.ModAvion.Codigo != self.Avion.Codigo:
+                Lis.append(item.Nombre)
+        return Lis
