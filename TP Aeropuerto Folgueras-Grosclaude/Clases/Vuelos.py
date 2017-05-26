@@ -1,4 +1,7 @@
 from .Pasajeros import Pasajero
+from .ServicioBordo import ServicioABordo
+from .Servicio import Servicios
+from .Aviones import Avion
 from datetime import datetime
 class Vuelo(object):
 
@@ -20,7 +23,7 @@ class Vuelo(object):
                 if item.FechaNacimiento.year > item2.FechaNacimiento.year:
                     a = item
                 elif item.FechaNacimiento.year == item2.FechaNacimiento.year:
-                    if item.FechaNacimiento.month >item2.FechaNacimiento.month:
+                    if item.FechaNacimiento.month > item2.FechaNacimiento.month:
                         a = item
                     elif item.FechaNacimiento.month == item2.FechaNacimiento.month:
                         if item.FechaNacimiento.day > item2.FechaNacimiento.day:
@@ -33,7 +36,18 @@ class Vuelo(object):
 
     def Colados(self):
         Lis = []
+        existe=0
         for item in self.Tripulantes:
-            if item.ModAvion.Codigo != self.Avion.Codigo:
+            for item2 in item.ModAvion:
+                if item2 != None:
+                    if item2.Codigo == self.Avion.Codigo:
+                        existe = 1
+            if existe == 0:
                 Lis.append(item.Nombre)
+            existe = 0
         return Lis
+
+
+
+
+

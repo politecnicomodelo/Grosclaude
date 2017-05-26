@@ -44,9 +44,7 @@ def Cargar():
             b = a[6].split(",")
             for item in b:
                 pas.append(EncontrarPasajeros(item))
-            print(pas[0].Nombre)
             v = Vuelo(EncontrarAvion(a[0]),TransformarFecha(a[1]),a[2],a[3],a[4],trip,pas)
-            print(v.Pasajeros[0].Nombre)
             Vuelos.append(v)
 
 def TransformarFecha(f):
@@ -83,13 +81,30 @@ def EncontrarPasajeros(dni):
         if item.Dni == dni:
             return item
 
+def VuelosPorDia():
+    lista = []
+    for item in Vuelos:
+        for item2 in Vuelos:
+            if item != item2 and item.Fecha == item2.Fecha:
+                for item3 in item.Tripulantes:
+                    if item3 in item2.Tripulantes:
+                        lista.append(item3)
+    return lista
 Cargar()
+print(Vuelos[0].Tripulantes[0].Nombre)
 print(Vuelos[0].CantPersonas())
-print(Vuelos[0].PasajeroJoven().Nombre)
 a=0
 for item in Vuelos:
     if Vuelos[0].TripulacionMin():
         a += 1
 print("Hay " + str(a) + " vuelos que cumplen con la tripulacion minima")
+b=1
 for item in Vuelos:
-    print("Los Colados son: " + item.Colados())
+    print("En el vuelo " + str(b) + " los Colados son: " )
+    for item2 in item.Colados():
+        print(item2)
+    b+=1
+for item in VuelosPorDia():
+    print(item.Nombre)
+    print(item.Dni)
+print(Vuelos[0].PasajeroJoven().Nombre)
