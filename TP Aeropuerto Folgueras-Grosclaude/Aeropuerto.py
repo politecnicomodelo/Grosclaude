@@ -1,4 +1,3 @@
-from Clases.Personas import Persona
 from Clases.Pasajeros import Pasajero
 from Clases.ServicioBordo import ServicioABordo
 from Clases.Aviones import Avion
@@ -6,12 +5,17 @@ from Clases.Vuelos import Vuelo
 from Clases.Servicio import Servicios
 from datetime import datetime
 from datetime import date
+import os
 Pasajeros = []
 Servi = []
 Pilotos = []
 Aviones = []
 Vuelos = []
 
+def MostrarPasajeros(Vuelo):
+    for item in Vuelo.Pasajeros:
+        texto = [item.Nombre, item.Apellido, str(item.FechaNacimiento), item.Dni]
+        print('{: >20} | {: >20} | {: >20} | {: >20}'.format(*texto))
 
 def Cargar():
     trip = []
@@ -70,6 +74,7 @@ def EncontrarTripulacion(dni):
     for item in Pilotos:
         if item.Dni == dni:
             return item
+
 def EncontrarPasajeros(dni):
     for item in Pasajeros:
         if item.Dni == dni:
@@ -87,24 +92,73 @@ def VuelosPorDia():
         for item2 in Vuelos:
             if item != item2 and item.Fecha == item2.Fecha:
                 for item3 in item.Tripulantes:
-                    if item3 in item2.Tripulantes:
+                    if item3 in item2.Tripulantes and item3 not in lista:
                         lista.append(item3)
     return lista
+
 Cargar()
-print(Vuelos[0].Tripulantes[0].Nombre)
-print(Vuelos[0].CantPersonas())
-a=0
-for item in Vuelos:
-    if Vuelos[0].TripulacionMin():
+
+def Ejercicio_6():
+    a = 1
+    for item in Vuelos:
+        print("Vuelo numero " + str(a) + ":")
+        for item2 in item.PersonasVip():
+            print("Las personas vip o con necesidades especiales son : " + item2.Nombre + " " + item2.Dni)
         a += 1
-print("Hay " + str(a) + " vuelos que cumplen con la tripulacion minima")
-b=1
-for item in Vuelos:
-    print("En el vuelo " + str(b) + " los Colados son: " )
-    for item2 in item.Colados():
-        print(item2)
-    b+=1
-for item in VuelosPorDia():
-    print(item.Nombre)
-    print(item.Dni)
-print(Vuelos[0].PasajeroJoven().Nombre)
+
+def Menu():
+    while True:
+        print("1: Nomina de Personas por Vuelo")
+        print("2: Pasajero mas joven por Vuelo")
+        print("3: Tripulacion minima no alcanzada")
+        print("4: Vuelos con personas no autorizadas")
+        print("5: Tripulantes que viajen mas de una vez por dia")
+        print("6: Personas VIP o Necesitadas")
+        print("Salir")
+        Elegir = input()
+        os.system('clear')
+        if Elegir == "1":
+            MostrarPasajeros(Vuelos[0])
+            print("Escriba salir para continuar")
+            Salir = input()
+            os.system('clear')
+        elif Elegir == "2":
+            for item in Vuelos:
+                print(item.PasajeroJoven().Nombre + " " + item.PasajeroJoven().Apellido)
+            print("Escriba salir para continuar")
+            Salir = input()
+            os.system('clear')
+        elif Elegir == "3":
+            a = 0
+            for item in Vuelos:
+                if Vuelos[0].TripulacionMin():
+                    a += 1
+            print("Hay " + str(a) + " vuelos que cumplen con la tripulacion minima")
+            print("Escriba salir para continuar")
+            Salir = input()
+            os.system('clear')
+        elif Elegir == "4":
+            b = 1
+            for item in Vuelos:
+                print("En el vuelo " + str(b) + " los Colados son: ")
+                for item2 in item.Colados():
+                    print(item2)
+                b += 1
+            print("Escriba salir para continuar")
+            Salir = input()
+            os.system('clear')
+        elif Elegir == "5":
+            for item in VuelosPorDia():
+                print(item.Nombre)
+                print(item.Dni)
+            print("Escriba salir para continuar")
+            Salir = input()
+            os.system('clear')
+        elif Elegir == "6":
+            Ejercicio_6()
+            print("Escriba salir para continuar")
+            Salir = input()
+            os.system('clear')
+        elif Elegir == "salir":
+            break
+Menu()

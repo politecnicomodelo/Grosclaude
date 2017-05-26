@@ -20,14 +20,15 @@ class Vuelo(object):
     def PasajeroJoven(self):
         for item in self.Pasajeros:
             for item2 in self.Pasajeros:
-                if item.FechaNacimiento.year > item2.FechaNacimiento.year:
-                    a = item
-                elif item.FechaNacimiento.year == item2.FechaNacimiento.year:
-                    if item.FechaNacimiento.month > item2.FechaNacimiento.month:
+                if item2 != None and item != None:
+                    if item.FechaNacimiento.year > item2.FechaNacimiento.year:
                         a = item
-                    elif item.FechaNacimiento.month == item2.FechaNacimiento.month:
-                        if item.FechaNacimiento.day > item2.FechaNacimiento.day:
+                    elif item.FechaNacimiento.year == item2.FechaNacimiento.year:
+                        if item.FechaNacimiento.month > item2.FechaNacimiento.month:
                             a = item
+                        elif item.FechaNacimiento.month == item2.FechaNacimiento.month:
+                            if item.FechaNacimiento.day > item2.FechaNacimiento.day:
+                                a = item
         return a
 
     def TripulacionMin(self):
@@ -42,10 +43,18 @@ class Vuelo(object):
                 if item2 != None:
                     if item2.Codigo == self.Avion.Codigo:
                         existe = 1
-            if existe == 0:
+            if existe == 0 and item not in Lis:
                 Lis.append(item.Nombre)
             existe = 0
         return Lis
+
+    def PersonasVip(self):
+        lista = []
+        for item in self.Pasajeros:
+            if item !=None:
+                if item.Vip == 1 or item.Necesidades != None and item not in lista:
+                    lista.append(item)
+        return lista
 
 
 
