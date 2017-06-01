@@ -39,13 +39,14 @@ class Vuelo(object):
         Lis = []
         existe=0
         for item in self.Tripulantes:
+            existe = 0
             for item2 in item.ModAvion:
+
                 if item2 != None:
                     if item2.Codigo == self.Avion.Codigo:
                         existe = 1
             if existe == 0 and item not in Lis:
                 Lis.append(item.Nombre)
-            existe = 0
         return Lis
 
     def PersonasVip(self):

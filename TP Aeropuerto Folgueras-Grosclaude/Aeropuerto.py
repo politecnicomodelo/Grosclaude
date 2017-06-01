@@ -14,10 +14,15 @@ Vuelos = []
 
 def MostrarPasajeros(Vuelo):
     a=1
+    print(105 * '=')
+    X = ['Vuelo','Pasajeros','Fecha de Nacimiento','DNI']
+    print('{: <20} | {: <43} | {: <20} | {: <20}'.format(*X))
+    print(105*'=')
     for item in Vuelos:
         for item2 in item.Pasajeros:
             texto = [a,item2.Nombre, item2.Apellido, str(item2.FechaNacimiento), item2.Dni]
             print('{: <20} | {: <20} | {: <20} | {: <20} | {: <20}'.format(*texto))
+        print(" ")
         a+=1
 
 def Cargar():
@@ -114,6 +119,7 @@ def Ejercicio_6():
 
 def Menu():
     while True:
+        os.system('clear')
         print("1: Nomina de Personas por Vuelo")
         print("2: Pasajero mas joven por Vuelo")
         print("3: Tripulacion minima no alcanzada")
@@ -127,32 +133,40 @@ def Menu():
             MostrarPasajeros(Vuelos[0])
             print("Escriba salir para continuar")
             Salir = input()
-            os.system('clear')
+            while Salir != "salir":
+                print("INGRESE SALIR")
+                Salir = input()
         elif Elegir == "2":
             for item in Vuelos:
                 print(item.PasajeroJoven().Nombre + " " + item.PasajeroJoven().Apellido)
             print("Escriba salir para continuar")
             Salir = input()
-            os.system('clear')
+            while Salir != "salir":
+                print("INGRESE SALIR")
+                Salir = input()
         elif Elegir == "3":
             a = 0
             for item in Vuelos:
                 if Vuelos[0].TripulacionMin():
                     a += 1
-            print("Hay " + str(a) + " vuelos que cumplen con la tripulacion minima")
+            print("Hay " + str(a) + " vuelos que no cumplen con la tripulacion minima")
             print("Escriba salir para continuar")
             Salir = input()
-            os.system('clear')
+            while Salir != "salir":
+                print("INGRESE SALIR")
+                Salir = input()
         elif Elegir == "4":
             b = 1
             for item in Vuelos:
-                print("En el vuelo " + str(b) + " los Colados son: ")
+                print("En el vuelo " + str(b) + " las personas no autorizadas son: ")
                 for item2 in item.Colados():
                     print(item2)
                 b += 1
             print("Escriba salir para continuar")
             Salir = input()
-            os.system('clear')
+            while Salir != "salir":
+                print("INGRESE SALIR")
+                Salir = input()
         elif Elegir == "5":
             for item in VuelosPorDia():
                 print(item.Nombre)
@@ -164,7 +178,13 @@ def Menu():
             Ejercicio_6()
             print("Escriba salir para continuar")
             Salir = input()
-            os.system('clear')
+            while Salir != "salir":
+                print("INGRESE SALIR")
+                Salir = input()
         elif Elegir == "salir":
             break
+        else:
+            while int(Elegir) > 6 and int(Elegir) < 1 or Elegir != "salir":
+                print("Elija una opcion correcta")
+                Elegir = input()
 Menu()
