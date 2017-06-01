@@ -13,9 +13,12 @@ Aviones = []
 Vuelos = []
 
 def MostrarPasajeros(Vuelo):
-    for item in Vuelo.Pasajeros:
-        texto = [item.Nombre, item.Apellido, str(item.FechaNacimiento), item.Dni]
-        print('{: >20} | {: >20} | {: >20} | {: >20}'.format(*texto))
+    a=1
+    for item in Vuelos:
+        for item2 in item.Pasajeros:
+            texto = [a,item2.Nombre, item2.Apellido, str(item2.FechaNacimiento), item2.Dni]
+            print('{: <20} | {: <20} | {: <20} | {: <20} | {: <20}'.format(*texto))
+        a+=1
 
 def Cargar():
     trip = []
@@ -41,6 +44,7 @@ def Cargar():
     a = []
     with open("vuelos.dat","r") as file:
         for item in file:
+
             a = item.split("|")
             b = a[5].split(",")
             for item in b:
@@ -50,6 +54,8 @@ def Cargar():
                 pas.append(EncontrarPasajeros(item))
             v = Vuelo(EncontrarAvion(a[0]),TransformarFecha(a[1]),a[2],a[3],a[4],trip,pas)
             Vuelos.append(v)
+            trip=[]
+            pas=[]
 
 def TransformarFecha(f):
     a = f.split("-")
