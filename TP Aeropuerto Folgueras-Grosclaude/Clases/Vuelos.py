@@ -53,7 +53,7 @@ class Vuelo(object):
         lista = []
         for item in self.Pasajeros:
             if item !=None:
-                if item.Vip == 1 or item.Necesidades != None and item not in lista:
+                if item.Vip == 1 or item.Necesidades != '\n' and item not in lista:
                     lista.append(item)
         return lista
 
