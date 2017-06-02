@@ -18,22 +18,15 @@ class Vuelo(object):
         return len(self.Tripulantes) + len(self.Pasajeros)
 
     def PasajeroJoven(self):
+        a=[]
         for item in self.Pasajeros:
-            for item2 in self.Pasajeros:
-                if item2 != None and item != None:
-                    if item.FechaNacimiento.year > item2.FechaNacimiento.year:
-                        a = item
-                    elif item.FechaNacimiento.year == item2.FechaNacimiento.year:
-                        if item.FechaNacimiento.month > item2.FechaNacimiento.month:
-                            a = item
-                        elif item.FechaNacimiento.month == item2.FechaNacimiento.month:
-                            if item.FechaNacimiento.day > item2.FechaNacimiento.day:
-                                a = item
-        return a
+            a.append(item.FechaNacimiento)
+        return max(a)
 
     def TripulacionMin(self):
         if len(self.Tripulantes) >= self.Avion.CantTrip:
             return True
+        return False
 
     def Colados(self):
         Lis = []
@@ -41,7 +34,6 @@ class Vuelo(object):
         for item in self.Tripulantes:
             existe = 0
             for item2 in item.ModAvion:
-
                 if item2 != None:
                     if item2.Codigo == self.Avion.Codigo:
                         existe = 1

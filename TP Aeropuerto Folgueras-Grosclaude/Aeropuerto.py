@@ -113,9 +113,25 @@ def Ejercicio_6():
     a = 1
     for item in Vuelos:
         print("Vuelo numero " + str(a) + ":")
+        print("Las personas vip o con necesidades especiales son : ")
         for item2 in item.PersonasVip():
-            print("Las personas vip o con necesidades especiales son : " + item2.Nombre + " " + item2.Dni)
+            if item2.Necesidades != '\n' and item2.Vip=="1":
+                X = [item2.Nombre, item2.Dni,"Es VIP",item2.Necesidades]
+                print('{: <20} | {: <20} | {: <20} | {: <20} '.format(*X))
+            elif item2.Vip == "1":
+                X = [item2.Nombre, item2.Dni, "Es VIP"]
+                print('{: <20} | {: <20} | {: <20} '.format(*X))
+            else:
+
+                X = [item2.Nombre, item2.Dni, item2.Necesidades]
+                print('{: <20} | {: <20} | {: <20} '.format(*X))
         a += 1
+        print(" ")
+
+def EncontrarPasFecha(f):
+    for item in Pasajeros:
+        if item.FechaNacimiento==f:
+            return item
 
 def Menu():
     while True:
@@ -137,19 +153,22 @@ def Menu():
                 print("INGRESE SALIR")
                 Salir = input()
         elif Elegir == "2":
+            a = 1
             for item in Vuelos:
-                print(item.PasajeroJoven().Nombre + " " + item.PasajeroJoven().Apellido)
+                print("El pasajero mas joven del vuelo " + str(a) + " es: ")
+                print(EncontrarPasFecha(item.PasajeroJoven()).Nombre + " " +
+                      EncontrarPasFecha(item.PasajeroJoven()).Apellido + " " + EncontrarPasFecha(item.PasajeroJoven()).Dni)
+                print(" ")
+                a+=1
             print("Escriba salir para continuar")
             Salir = input()
             while Salir != "salir":
                 print("INGRESE SALIR")
                 Salir = input()
         elif Elegir == "3":
-            a = 0
             for item in Vuelos:
-                if Vuelos[0].TripulacionMin():
-                    a += 1
-            print("Hay " + str(a) + " vuelos que no cumplen con la tripulacion minima")
+                if not item.TripulacionMin():
+                    print("El vuelo con destino a " + item.Destino + " no cumple con la tripulacion necesaria para volar")
             print("Escriba salir para continuar")
             Salir = input()
             while Salir != "salir":
@@ -168,6 +187,8 @@ def Menu():
                 print("INGRESE SALIR")
                 Salir = input()
         elif Elegir == "5":
+            if len(VuelosPorDia()) == 0:
+                print("No hay tripulantes que viajen mas de una vez por dia")
             for item in VuelosPorDia():
                 print(item.Nombre)
                 print(item.Dni)
